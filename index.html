@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>challenge 2 cahter 1</title>
+</head>
+<body>
+    <h1>Banking System</h1>
+    <p>Saldo mu sebesar <span id="saldo">0,00</span></p>
+    <label for="amountInput"><input type="number" id="amountInput" placeholder="Masukkan Nilai " min=0 max=2147483647></label>
+    <br>
+    <label for="deposit">Deposit <input type="radio" id="deposit" name="action"></label>
+    <label for="withDraw">Withdraw<input type="radio" id="withDraw" name="action"></label>
+    <br>
+    <button class="button" id="submitButton">Simpan</button>
+    <script src="banking_system.js"></script>
+<script>
+    const bank = new bankAccount();
+    const amountInput = document.getElementById("amountInput");
+    const submitButton = document.getElementById("submitButton");
+
+    submitButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const ammount = amountInput.value;
+        const action = document.querySelector('input[name="action"]:checked').id;
+
+        try {
+            let result;
+            if (action === "deposit") {
+                result = await bank.deposit(ammount);
+            } else if (action === "withDraw") {
+                result = await bank.withDraw(ammount);
+            }
+
+            console.log(result);
+            console.log(bank);
+        } catch (error) {
+
+            console.error(`Error: ${error}`);
+        }
+
+
+
+        document.getElementById("amountInput").value = "";
+    });
+</script>
+</body>
+</html>
